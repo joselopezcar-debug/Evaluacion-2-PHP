@@ -9,43 +9,70 @@ function generarArray($n) {
 }
 
 function invertirArray($arr) {
-    $inv = [];
+    $invertido = [];
     $j = 0;
     for ($i = count($arr) - 1; $i >= 0; $i--) {
-        $inv[$j] = $arr[$i];
+        $invertido[$j] = $arr[$i];
         $j++;
     }
-    return $inv;
+    return $invertido;
 }
 
-function imprimirArray($titulo, $arr) {
-    echo "<h3>$titulo</h3>";
-    echo "<p>[ " . implode(", ", $arr) . " ]</p>";
+function imprimirArray($arr) {
+    foreach ($arr as $valor) {
+        echo $valor . " ";
+    }
 }
 
-$n = $_GET["n"];
-$original = generarArray($n);
-$invertido = invertirArray($original);
+$cantidad = $_GET["cantidad"];
+$arrayGenerado = generarArray($cantidad);
+$arrayInvertido = invertirArray($arrayGenerado);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Resultado Pregunta 1</title>
-    <style>
-        body { font-family: Arial; background-color: #eef2f3; padding: 20px; }
-        .box { background: white; padding: 20px; width: 600px; margin: auto; border-radius: 10px; box-shadow: 0 0 10px gray; }
-        h2 { text-align: center; }
-    </style>
+    <title>Resultado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="box">
-    <h2>Resultado del Array</h2>
-    <?php
-        imprimirArray("Array Original", $original);
-        imprimirArray("Array Invertido", $invertido);
-    ?>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow">
+
+        <div class="card-header text-center">
+            <h3 class="fw-bold">Generar e invertir un array</h3>
+            <p class="m-0">Cantidad de números en el array: <?= $cantidad ?></p>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col fw-bold">Array generado:</div>
+                <div class="col">
+                    <?php imprimirArray($arrayGenerado); ?>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row mb-3">
+                <div class="col fw-bold">Array invertido:</div>
+                <div class="col">
+                    <?php imprimirArray($arrayInvertido); ?>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer text-end text-secondary">
+            Desarrollo de Aplicaciones en Internet
+        </div>
+
+    </div>
 </div>
+
 </body>
 </html>

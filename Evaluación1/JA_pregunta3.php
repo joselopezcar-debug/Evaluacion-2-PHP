@@ -1,42 +1,66 @@
 <?php
 
-$alumnos = $_POST["alumnos"];
-$grado = $_POST["grado"];
+$alumnos = $_POST['alumnos'];
+$grado = $_POST['grado'];
 
 if ($alumnos >= 100) {
-    $precioAlumno = 65;
+    $costoAlumno = 65;
 } elseif ($alumnos >= 50) {
-    $precioAlumno = 70;
+    $costoAlumno = 70;
 } elseif ($alumnos >= 30) {
-    $precioAlumno = 95;
+    $costoAlumno = 95;
 } else {
-    $precioBus = 400;
-    $precioAlumno = round($precioBus / $alumnos, 2);
+    $costoRenta = 400;
+    $costoAlumno = 0;
 }
 
-if ($grado == "primaria" && $alumnos >= 30) {
-    $precioAlumno += 5;
+if ($grado == "Primaria" && $alumnos >= 30) {
+    $costoAlumno += 5;
 }
 
-$costoTotal = $precioAlumno * $alumnos;
+if ($alumnos >= 30) {
+    $costoRenta = $alumnos * $costoAlumno;
+}
+
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Resultado Viaje</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <title>Viaje de Estudios</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-
 <body class="bg-light">
-<div class="container mt-5 bg-white p-4 shadow rounded" style="max-width: 600px;">
-    <h2 class="text-center mb-4">Resultado del Viaje</h2>
 
-    <p><strong>Número de alumnos:</strong> <?= $alumnos ?></p>
-    <p><strong>Grado:</strong> <?= ucfirst($grado) ?></p>
-    <p><strong>Precio por alumno:</strong> S/ <?= number_format($precioAlumno, 2) ?></p>
-    <p><strong>Costo total del viaje:</strong> S/ <?= number_format($costoTotal, 2) ?></p>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header text-center fw-bold">
+            Pregunta 3 - Viaje de Estudios
+        </div>
+
+        <div class="card-body text-center">
+
+            <div class="row mb-3">
+                <div class="col fw-bold">Cantidad de alumnos: <?= $alumnos ?></div>
+                <div class="col fw-bold">Grado de instrucción: <?= $grado ?></div>
+            </div>
+
+            <p class="fs-5">Costo de renta del autobús: S/<?= $costoRenta ?></p>
+
+            <?php if ($alumnos >= 30): ?>
+                <p class="fs-5">Precio por alumno: S/<?= $costoAlumno ?></p>
+            <?php else: ?>
+                <p class="text-muted">(Costo por alumno no aplica: menos de 30 estudiantes)</p>
+            <?php endif; ?>
+
+        </div>
+
+        <div class="card-footer text-end small">
+            Desarrollo de Aplicaciones en Internet
+        </div>
+
+    </div>
 </div>
+
 </body>
 </html>
